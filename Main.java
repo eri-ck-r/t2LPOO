@@ -5,7 +5,7 @@
 
 package main;
 
-import t2.*;
+import main.t2.*;
 
 public class Main
 {

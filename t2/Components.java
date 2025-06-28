@@ -3,7 +3,7 @@
  * @author Luiz Alexandre Espindola Cunha
  */
 
-package t2;
+package main.t2;
 
 public enum Components
 {
