@@ -9,5 +9,5 @@ $>git clone https://github.com/eri-ck-r/t2LPOO.git
 ```
 
 ## Autores
-• Erick Rodrigues de Lemos Ribeiro
+• Erick Rodrigues de Lemos Ribeiro\
 • Luiz Alexandre Espíndola Cunha
