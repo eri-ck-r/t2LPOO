@@ -20,15 +20,23 @@ public abstract class Component
    * @return "Transform" or "Mesh" or "Camera" or "Light"
    * 		 depending on where it was invoked
    */
-  public String type()
+  public String getName()
   {
     return this.getClass().getSimpleName();
   }
-  
+
+  public void display()
+  {
+    System.out.println("Component type: "+ getName());
+    System.out.println(getName()+"'s parent: "+o.getName());
+  }
+
+  public abstract void displayAttributes();
+
   protected void general_inspect()
   {
     System.out.printf("Component: %s\nFrom object: %s\n",
-    		this.type(), o.getName());
+    		this.getName(), o.getName());
   }
 
 }  // Component
