@@ -11,11 +11,14 @@ public class Light extends Component
   private GameConst type;
   private Color color;
   
+  public Light(Scene.GameObject o)
+  {
+    super(o);
+  }
   public Light(Scene.GameObject o, String type)
   {
     super(o);
-    
-    type = GameConst.
+    this.type = new GameConst(type, 1);
   }
   
   public void inspect()
