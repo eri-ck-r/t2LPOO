@@ -16,7 +16,8 @@ public class Main
     
     Light t = new Light(o);
     
-    t.inspect();
+    
+    System.out.println("aaaaaa");
   }
   
   
