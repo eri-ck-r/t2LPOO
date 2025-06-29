@@ -15,5 +15,10 @@ public class Mesh extends Component
   {
     super(o);
   }
-  
+
+  @Override
+  public void displayAttributes()
+  {
+    //TODO
+  }
 }  // Mesh
