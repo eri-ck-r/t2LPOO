@@ -16,5 +16,10 @@ public class Camera extends Component
   {
     super(o);
   }
-  
+
+  @Override
+  public void displayAttributes()
+  {
+    //TODO
+  }
 }  // Camera
