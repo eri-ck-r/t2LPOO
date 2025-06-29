@@ -11,7 +11,7 @@ public class Mesh extends Component
   String name;
   String material;
   
-  public Mesh(Scene.GameObject o)
+  public Mesh(GameObject o)
   {
     super(o);
   }

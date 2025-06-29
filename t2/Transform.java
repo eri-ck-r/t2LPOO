@@ -12,7 +12,7 @@ public class Transform extends Component
   private Vector rotation;
   private double scale;
   
-  public Transform(Scene.GameObject o)
+  public Transform(GameObject o)
   {
     super(o);
     position = new Vector(3);

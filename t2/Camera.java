@@ -12,7 +12,7 @@ public class Camera extends Component
   private double angle;
   private double[] d;
   
-  public Camera(Scene.GameObject o)
+  public Camera(GameObject o)
   {
     super(o);
   }

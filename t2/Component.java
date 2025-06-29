@@ -8,9 +8,9 @@ package t2;
 
 public abstract class Component
 {
-  private final Scene.GameObject o;
+  private final GameObject o;
 
-  public Component(Scene.GameObject o)
+  public Component(GameObject o)
   {
     this.o = o;
   }
