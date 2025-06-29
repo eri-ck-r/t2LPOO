@@ -18,25 +18,5 @@ public class Scene
     
     // Components: Cube tera Mesh; Light tera Light; Main Camera tera Camera.
   }
-  
-  
-  
-  public class GameObject
-  {
-    private String name;
-    private GameObject parent;
-    private GameObjectList children;
-    private ComponentList components;
-    
-    public GameObject(String name)
-    {
-    	this.name = name;
-    }
 
-    public String getName()
-    {
-      return name;
-    }
-  }
-  
 }  // Scene
