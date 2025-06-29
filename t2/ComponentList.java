@@ -6,11 +6,26 @@
 
 package t2;
 
-import java.util.*;
-
-public class ComponentList
+public class ComponentList extends BasicList<Component>
 {
-  private int size;
-  private ArrayList<Component> comp;
+  public boolean removeComponent(String type)
+  {
+    if(type.equals("Transform"))
+    {
+      System.out.println("Cannot remove Transform");
+      return false;
+    }
+    for(int i = 0 ; i < this.size(); i++)
+    {
+      if(this.get(i).getName().equals(type))
+      {
+        this.remove(i);
+        return true;
+      }
+    }
+    return false;
+  }
+
+
   
 }  // ComponentList
