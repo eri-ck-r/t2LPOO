@@ -4,17 +4,29 @@
  * @author Luiz Alexandre Espindola Cunha
  */
 
-package main.t2;
+package t2;
 
 public class Transform extends Component
 {
-  private int[] position;
-  private int[] rotation;
-  private int scale;
+  private Vector position;
+  private Vector rotation;
+  private double scale;
   
   public Transform(Scene.GameObject o)
   {
     super(o);
+    position = new Vector(3);
+    rotation = new Vector(3);
+  }
+  
+  public void inspect()
+  {
+	  this.general_inspect();
+	  System.out.printf("Position: ");
+	  position.print();
+	  System.out.printf("Rotation: ");
+	  rotation.print();
+	  System.out.printf("Scale: %.2f", scale);
   }
   
 }  // Transform
