@@ -4,7 +4,7 @@
  * @author Luiz Alexandre Espíndola Cunha
  */
 
-package main.t2;
+package t2;
 
 public enum GameConst
 {

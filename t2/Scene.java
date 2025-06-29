@@ -4,7 +4,7 @@
  * @author Luiz Alexandre Espindola Cunha
  */
 
-package main.t2;
+package t2;
 
 public class Scene
 {
@@ -28,8 +28,11 @@ public class Scene
     private GameObjectList children;
     private ComponentList components;
     
-    
-    
+    public GameObject(String name)
+    {
+    	this.name = name;
+    }
+
     public String getName()
     {
       return name;

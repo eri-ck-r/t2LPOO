@@ -4,7 +4,7 @@
  * @author Luiz Alexandre Espindola Cunha
  */
 
-package main.t2;
+package t2;
 
 public abstract class Component
 {
@@ -15,14 +15,20 @@ public abstract class Component
     this.o = o;
   }
   
-  public Class type()
+  /**
+   * 
+   * @return "Transform" or "Mesh" or "Camera" or "Light"
+   * 		 depending on where it was invoked
+   */
+  public String type()
   {
-    return this.o.getClass();
+    return this.getClass().getSimpleName();
   }
   
   protected void general_inspect()
   {
-    System.out.printf("Component: %s\nFrom object: %s\n", this.type(), o.getName());
+    System.out.printf("Component: %s\nFrom object: %s\n",
+    		this.type(), o.getName());
   }
 
 }  // Component

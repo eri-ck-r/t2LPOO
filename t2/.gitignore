@@ -15,3 +15,8 @@
 /Scene.class
 /SceneList.class
 /Transform.class
+/Vector$VectorIterator.class
+/Vector.class
+/VectorElement.class
+/VectorElementInfo.class
+/Color.class
