@@ -7,7 +7,7 @@ package t2;
 
 import java.util.*;
 
-public class SceneList extends LinkedList<Scene>
+public class SceneList extends BasicList<Scene>
 {
   
   
