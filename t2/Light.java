@@ -18,7 +18,7 @@ public class Light extends Component
   public Light(GameObject o, String type)
   {
     super(o);
-    //this.type = new GameConst(type, 1);
+
   }
   
   public void inspect()
@@ -28,5 +28,10 @@ public class Light extends Component
 	  System.out.printf("Color: ");
 	  color.print("");
   }
-  
+
+  @Override
+  public void displayAttributes()
+  {
+      //TODO
+  }
 }  // Light
