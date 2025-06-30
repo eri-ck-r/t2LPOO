@@ -7,12 +7,14 @@ public class GameObject
     private GameObject parent;
     private GameObjectList children;
     private ComponentList components;
+    private Transform transform;
 
     public GameObject()
     {
         children = new GameObjectList();
         components = new ComponentList();
-        components.add(new Transform(this));
+        transform = new Transform(this);
+        components.add(transform);
     }
     public GameObject(String name)
     {
@@ -68,7 +70,7 @@ public class GameObject
 
     }
 
-    public boolean addComponent(Component component)
+    public void addComponent(Component component)
     {
         String newCompType = component.getName();
         for (Component c : components)
@@ -76,10 +78,10 @@ public class GameObject
             if(c.getName().equals(newCompType))
             {
                 System.out.println(newCompType+" already exists");
-                return false;
+                return;
             }
         }
-        return components.add(component);
+        components.add(component);
     }
 
     public boolean removeComponent(String name)
@@ -89,8 +91,58 @@ public class GameObject
 
     public void removeAllComponents()
     {
-        Component transform = components.get(0);
+        Component transform = components.getFirst();
         components.clear();
         components.add(transform);
+    }
+
+    /**
+     *
+     * @param v New position
+     * @param allChildren True to apply new offset to all children
+     */
+    public void changePosition(Vector3 v, boolean allChildren)
+    {
+        // TODO mudar para todos os objetos filho desse com o offset desse
+        Vector3 dPos = v.sub(transform.getPosition());
+        transform.setPosition(v);
+        if(allChildren)
+        {
+            for (GameObject child : children)
+                child.transform.setPosition(dPos);
+        }
+    }
+
+    /**
+     *
+     * @param v New rotation
+     * @param allChildren True to apply new rotation offset to all children
+     */
+    public void changeRotation(Vector3 v, boolean allChildren)
+    {
+        // TODO mudar para todos os objetos filho desse com o offset desse
+        Vector3 dRotation = v.sub(transform.getRotation());
+        transform.setRotation(v);
+        if(allChildren)
+        {
+            for(GameObject child : children)
+                child.transform.setRotation(dRotation);
+        }
+    }
+
+    /**
+     *
+     * @param s New scale
+     * @param allChildren True to apply new scale to all children
+     */
+    public void changeScale(double s, boolean allChildren)
+    {
+        // TODO mudar para todos os objetos filhos
+        transform.setScale(s);
+        if(allChildren)
+        {
+            for(GameObject child : children)
+                child.transform.setScale(s);
+        }
     }
 }
