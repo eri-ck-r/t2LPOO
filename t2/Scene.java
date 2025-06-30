@@ -15,7 +15,7 @@ public class Scene
   {
     // Quando uma nova cena, S, eh criada, esta conterá
     // tres novos objetos de jogo chamados (1) Cube, (2) Light, e (3) Main Camera.
-    // Components: Cube tera Mesh; Light tera Light; Main Camera tera Camera.
+    // Components: Cube tera Mesh; Light terá Light; Main Camera tera Camera.
     root = new GameObjectList();
     GameObject light = new GameObject("Light");
     light.addComponent(new Light(light));
