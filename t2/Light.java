@@ -10,7 +10,6 @@ public class Light extends Component
 {
   private GameConst type;
   private Color color;
-  
   public Light(GameObject o)
   {
     super(o);
