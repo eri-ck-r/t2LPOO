@@ -17,6 +17,13 @@ public class Scene
     // tres novos objetos de jogo chamados (1) Cube, (2) Light, e (3) Main Camera.
     // Components: Cube tera Mesh; Light terá Light; Main Camera tera Camera.
     root = new GameObjectList();
+
+    GameObject cube = new GameObject("Cube");
+    cube.addComponent(new Mesh(cube));
+
+    GameObject main_camera = new GameObject("Main Camera");
+    main_camera.addComponent(new Camera(main_camera));
+    
     GameObject light = new GameObject("Light");
     light.addComponent(new Light(light));
 

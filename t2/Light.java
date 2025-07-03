@@ -8,16 +8,20 @@ package t2;
 
 public class Light extends Component
 {
-  private GameConst type;
+  private LightType type;
   private Color color;
+  
   public Light(GameObject o)
   {
     super(o);
+    color = Color.white;
+    type = LightType.PUNCTUAL;
   }
+
   public Light(GameObject o, String type)
   {
     super(o);
-
+    
   }
   
   public void inspect()
@@ -33,4 +37,11 @@ public class Light extends Component
   {
       //TODO
   }
+
+  protected enum LightType
+  {
+    PUNCTUAL,
+    DIRECTIONAL
+  }
+
 }  // Light

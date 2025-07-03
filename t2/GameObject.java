@@ -1,3 +1,9 @@
+/**
+ *
+ * @author Erick Rodrigues de Lemos Riberio
+ * @author Luiz Alexandre Espindola Cunha
+ */
+
 package t2;
 
 public class GameObject
@@ -16,6 +22,7 @@ public class GameObject
         transform = new Transform(this);
         components.add(transform);
     }
+    
     public GameObject(String name)
     {
         this.name = name;

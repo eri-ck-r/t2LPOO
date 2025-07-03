@@ -1,5 +1,6 @@
 /**
  *
+ * @author Erick Rodrigues de Lemos Riberio
  * @author Luiz Alexandre Espindola Cunha
  */
 
