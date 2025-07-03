@@ -13,19 +13,21 @@ public class GameObject
     private GameObject parent;
     private GameObjectList children;
     private ComponentList components;
-    private Transform transform;
+    private Transform transform;  // e pode?
 
-    public GameObject()
+    public GameObject(Scene s)
     {
+        scene = s;
         children = new GameObjectList();
         components = new ComponentList();
         transform = new Transform(this);
-        components.add(transform);
+        components.add(transform);  // Não entendi
     }
-    
-    public GameObject(String name)
+
+    public GameObject(Scene s, String name)
     {
         this.name = name;
+        scene = s;
     }
 
     public String getName()
@@ -53,6 +55,11 @@ public class GameObject
         return children.removeElement(name);
     }
 
+    // "...do tipo Transform, o qual não poderá ser
+    // removido da lista de componentes de O"
+    //
+    // Ou seja, não dá pra deixar Transform
+    // ficar independente de GameObjectList
     public void removeAllObjects()
     {
         children.clear();

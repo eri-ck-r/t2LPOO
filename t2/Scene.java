@@ -15,28 +15,28 @@ public class Scene
   {
     // Quando uma nova cena, S, eh criada, esta conterá
     // tres novos objetos de jogo chamados (1) Cube, (2) Light, e (3) Main Camera.
-    // Components: Cube tera Mesh; Light terá Light; Main Camera tera Camera.
+    // Components: Cube terá Mesh; Light terá Light; Main Camera terá Camera.
     root = new GameObjectList();
 
-    GameObject cube = new GameObject("Cube");
+    GameObject cube = new GameObject(this, "Cube");
     cube.addComponent(new Mesh(cube));
 
-    GameObject main_camera = new GameObject("Main Camera");
-    main_camera.addComponent(new Camera(main_camera));
-    
-    GameObject light = new GameObject("Light");
+    GameObject light = new GameObject(this, "Light");
     light.addComponent(new Light(light));
 
+    GameObject main_camera = new GameObject(this, "Main Camera");
+    main_camera.addComponent(new Camera(main_camera));
 
-    //TODO
-
+    root.add(cube);
+    root.add(light);
+    root.add(main_camera);
   }
 
   public String getName()
   {
     return name;
   }
-
+  
   public void setName(String name)
   {
     this.name = name;
@@ -74,4 +74,5 @@ public class Scene
     for(GameObject obj : root)
       obj.display();
   }
+  
 }  // Scene

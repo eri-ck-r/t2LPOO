@@ -9,6 +9,7 @@ package t2;
 public class Game
 {
   private SceneList scenes;
+  public String name;  // Makes sense, believe me
 
   public Game()
   {
@@ -31,9 +32,17 @@ public class Game
     return scenes.getElement(name);
   }
 
+  public void removeAllScenes()
+  {
+    scenes.clear();
+  }
+
   public void forEach()
   {
-//Todo
+    for(Scene s : scenes)
+    {
+      
+    }
 
   }
 }  // Game

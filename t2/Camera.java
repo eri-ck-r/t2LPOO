@@ -8,13 +8,14 @@ package t2;
 
 public class Camera extends Component
 {
-  private GameConst type;
+  private CameraType type;
   private double angle;
   private double[] d;
   
   public Camera(GameObject o)
   {
     super(o);
+    type = CameraType.PARALLEL;
   }
 
   @Override
@@ -22,4 +23,11 @@ public class Camera extends Component
   {
     //TODO
   }
+
+  private enum CameraType
+  {
+    PARALLEL,
+    PERSPECTIVE
+  }
+
 }  // Camera

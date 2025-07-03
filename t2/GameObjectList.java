@@ -11,5 +11,4 @@ import java.util.*;
 public class GameObjectList extends BasicList<GameObject>
 {
   
-  
 }  // GameObjectList

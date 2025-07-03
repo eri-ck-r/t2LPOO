@@ -48,6 +48,7 @@ public class Transform extends Component
   {
       rotation = v;
   }
+  
   public void inspect()
   {
 	  this.general_inspect();

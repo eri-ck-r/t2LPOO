@@ -13,7 +13,7 @@ public class Main
   public static void main(String[] args)
   {
     Scene s = new Scene();
-    GameObject o = new GameObject("teste1");
+    GameObject o = new GameObject(s, "teste1");
     
     Light t = new Light(o);
     

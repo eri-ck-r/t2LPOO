@@ -26,6 +26,11 @@ public class ComponentList extends BasicList<Component>
     return false;
   }
 
+  public boolean addComponent(String type)
+  {
+    //TODO: don't add if the list already has one of if
+    return true;
+  }
 
   
 }  // ComponentList
