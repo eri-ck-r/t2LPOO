@@ -6,19 +6,16 @@
 
 package main;
 
-import t2.*;
+import java.io.DataInputStream;
+import java.io.IOException;
+
+//import t2.*;
 
 public class Main
 {
   public static void main(String[] args)
   {
-    Scene s = new Scene();
-    GameObject o = new GameObject(s, "teste1");
-    
-    Light t = new Light(o);
-    
-    
-    System.out.println("aaaaaa");
+    testando a = new testando();
   }
   
   
