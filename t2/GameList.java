@@ -6,8 +6,8 @@
 
 package t2;
 
-public interface Function
+public class GameList extends BasicList<Game>
 {
-    double run(double i);
 
-}  // Function
+
+}  // GameList

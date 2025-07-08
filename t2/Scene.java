@@ -62,9 +62,9 @@ public class Scene
     root.clear();
   }
 
-  public void forEach()
+  public void forEach(Function f)
   {
-    //TODO
+    
   }
 
   public void display()

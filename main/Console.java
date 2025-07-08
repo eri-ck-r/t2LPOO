@@ -4,15 +4,18 @@
  * @author Luiz Alexandre Espindola Cunha
  */
 
-package t2;
+package main;
 
 import java.io.*;
 
+import t2.*;
+
 public class Console
 {
-    Game game;
+    GameEngine engine;
+    Game currGame;
     Scene currScene;
-    GameObject currObject;
+    GameObject currGameObject;
     Component currComponent;
 
     private final static InputStreamReader keyboard;
@@ -25,21 +28,37 @@ public class Console
     }
 
     private Menu currMenu = Menu.GAME;
+    
+    
+    public static final MenuOption[] gameMenuOptions = {
+        new MenuOption("Editar cena;", ConsoleOperation.edit),
 
-    private static final String[] game_menu = {
+    };
+
+
+    static final String[] engine_menu = {
+        "Editar jogo;",
+        "Remover jogo;",
+        "Remover todos os jogos;",
+        "Exibir jogos;",
+        "Sair."
+    };
+
+    static final String[] game_menu = {
         "Editar cena;",  // "Obtenção" de uma cena
         "Editar todas as cenas;",
         "Adicionar cena;",
-        //"Carregar cena de arquivo;", (?)
-        //"Escrever cena em arquivo;", (?)
+        "Carregar cena de arquivo;",
+        "Escrever cena em arquivo;",
         "Remover cena;",
         "Remover todas as cenas;",
-        "Exibir jogo;", 
+        "Exibir jogo;",
         "Voltar;",
         "Sair."
     };
 
-    private static final String[] scene_menu = {
+
+    static final String[] scene_menu = {
         "Obter nome;",  // Faz sentido?
         "Editar nome;",
         "Adicionar objeto;",
@@ -52,7 +71,7 @@ public class Console
         "Sair."
     };
 
-    private static final String[] object_menu = {
+    static final String[] object_menu = {
         "Obter nome;",  // Faz sentido?
         "Editar nome;",
         "Adicionar objeto;",
@@ -69,16 +88,16 @@ public class Console
         "Sair."
     };
 
-    private static final String[] component_menu = {
+    static final String[] component_menu = {
         "Obter classe;",  // Faz sentido?
         "Inspecionar;",
         "Voltar;",
         "Sair."
     };
 
-    public Console(Game g)
+    public Console(GameEngine engine)
     {
-        game = g;
+        this.engine = engine;
     }
 
     public void clear_terminal()
@@ -92,7 +111,7 @@ public class Console
         try
         {
             int i = in.read();
-            switch(currentMenu)
+            switch(currMenu)
             {
                 case Menu.GAME:
                 {
@@ -131,7 +150,12 @@ public class Console
         System.out.println("Digite o nome: ");
     }
 
-    private enum Menu
+    public Menu getMenu()
+    {
+        return currMenu;
+    }
+
+    public enum Menu
     {
         GAME,
         SCENE,
