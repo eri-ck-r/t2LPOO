@@ -37,7 +37,7 @@ public class Console
 
 
     static final String[] engine_menu = {
-        "Editar jogo;",
+        "Editar jogo;", 
         "Remover jogo;",
         "Remover todos os jogos;",
         "Exibir jogos;",
@@ -59,12 +59,12 @@ public class Console
 
 
     static final String[] scene_menu = {
-        "Obter nome;",  // Faz sentido?
+        "Obter nome;",
         "Editar nome;",
         "Adicionar objeto;",
         "Remover objeto;",
         "Remover todos os objetos",
-        "Editar objeto;",  // Needs "show scene" invoked before to make sense
+        "Editar objeto;",
         "Editar todos os objetos;",
         "Exibir cena;",
         "Voltar;",
@@ -72,12 +72,12 @@ public class Console
     };
 
     static final String[] object_menu = {
-        "Obter nome;",  // Faz sentido?
+        "Obter nome;",
         "Editar nome;",
         "Adicionar objeto;",
         "Remover objeto;",
         "Remover todos os objetos",
-        "Editar objeto;",  // Needs "show object" invoked before to make sense
+        "Editar objeto;",
         "Editar todos os objetos;",
         "Editar componente;",
         "Adicionar componente;",
@@ -89,7 +89,7 @@ public class Console
     };
 
     static final String[] component_menu = {
-        "Obter classe;",  // Faz sentido?
+        "Obter classe;",
         "Inspecionar;",
         "Voltar;",
         "Sair."
