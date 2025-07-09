@@ -34,7 +34,6 @@ public class Console
 
     static final String[] game_menu = {
         "Edit scene;",  // "Obtenção" de uma cena
-        "Edit all scenes;",
         "Add scene;",
         "Read scene from file;",
         "Write scene in file;",
@@ -186,7 +185,57 @@ public class Console
     {
         if(i == 1)
         {
-
+            String name = ask_name();
+            currScene = currGame.getScene(name);
+            if(currScene != null)
+                currMenu = scene_menu;
+            else
+            {
+                notFound(name);
+                pause();
+            }
+        }
+        else if(i == 2)
+        {
+            currGame.addScene(ask_name());
+        }
+        else if(i == 3)
+        {
+            // LER DE ARQUIVO
+        }
+        else if(i == 4)
+        {
+            // ESCREVER EM ARQUIVO
+        }
+        else if(i == 5)
+        {
+            String name = ask_name();
+            if(currGame.removeScene(name))
+                System.out.println("Scene successfully removed!");  // Refactor later
+            else
+                notFound(name);
+            pause();
+        }
+        else if(i == 6)
+        {
+            currGame.clear();
+        }
+        else if(i == 7)
+        {
+            currGame.display();
+        }
+        else if(i == 8)
+        {
+            currMenu = engine_menu;
+        }
+        else if(i == 9)
+        {
+            return true;
+        }
+        else
+        {
+            invalid("number");
+            pause();
         }
         return false;
     }

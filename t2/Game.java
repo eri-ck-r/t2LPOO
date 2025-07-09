@@ -31,6 +31,11 @@ public class Game implements NamedObject
     scenes.add(s);
   }
 
+  public void addScene(String name)
+  {
+    addScene(new Scene(name));
+  }
+
   public boolean removeScene(String name)
   {
     return scenes.removeElement(name);
