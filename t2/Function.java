@@ -8,6 +8,6 @@ package t2;
 
 public interface Function
 {
-    double run(double i);
+    void run();
 
 }  // Function

@@ -8,14 +8,20 @@ package main;
 
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.util.function.Consumer;
 
-//import t2.*;
+import t2.*;
 
 public class Main
 {
   public static void main(String[] args)
   {
-    testando a = new testando();
+    GameEngine e = new GameEngine();
+    Console c = new Console(e);
+    c.key_listener();
+    
+    Consumer<Integer> print = (n) -> { System.out.println(n); };
+    print.accept(2);
   }
   
   

@@ -5,7 +5,7 @@
  */
 
 package t2;
-
+import java.util.function.Consumer;
 public class Scene
 {
   private String name;
@@ -62,11 +62,11 @@ public class Scene
     root.clear();
   }
 
-  public void forEach(Function f)
+  public void forEach(Consumer<GameObject> f)
   {
-    
+    root.forEach(f);
   }
-
+  
   public void display()
   {
     System.out.println("Scene name: "+name);

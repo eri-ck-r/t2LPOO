@@ -6,8 +6,8 @@
 
 package main;
 
+import java.util.*;
 import java.io.*;
-
 import t2.*;
 
 public class Console
@@ -18,22 +18,9 @@ public class Console
     GameObject currGameObject;
     Component currComponent;
 
-    private final static InputStreamReader keyboard;
-    private final static BufferedReader in;
+    Scanner sc = new Scanner(System.in);
 
-    static
-    {
-        keyboard = new InputStreamReader(System.in);
-        in = new BufferedReader(keyboard);
-    }
-
-    private Menu currMenu = Menu.GAME;
-    
-    
-    public static final MenuOption[] gameMenuOptions = {
-        new MenuOption("Editar cena;", ConsoleOperation.edit),
-
-    };
+    private String[] currMenu = engine_menu;
 
 
     static final String[] engine_menu = {
@@ -55,8 +42,7 @@ public class Console
         "Exibir jogo;",
         "Voltar;",
         "Sair."
-    };
-
+    }; 
 
     static final String[] scene_menu = {
         "Obter nome;",
@@ -105,33 +91,64 @@ public class Console
         System.out.print("\033[H\033[2J");
         System.out.flush(); // Ensures the output is sent to the console ("terminal") immediately
     }
-
+    
     public void key_listener()
     {
-        try
+        boolean sair = false;
+        while(!sair)
         {
-            int i = in.read();
-            switch(currMenu)
+            show_menu(currMenu);
+            int i = sc.nextInt();
+            if(currMenu == engine_menu)
             {
-                case Menu.GAME:
+                switch(i)
                 {
-                    switch(i)
+                    case 1:
                     {
-                        case 0:
-                        {
-                            ask_name();
-                            game.getScene(in.readLine());
-                            
-                        }
+                        String name = sc.nextLine();
+                        currGame = engine.getGame(name);
+                        currMenu = game_menu;
+                    }
+                    case 2:
+                    {
+
+                    }
+                    case 3:
+                    {
+
+                    }
+                    case 4:
+                    {
+
+                    }
+                    case 5:
+                    {
+
                     }
                 }
+            }
+            else if(currMenu == game_menu)
+            {
+                switch(i)
+                {
+                    case
+                }
+            }
+            else if(currMenu == scene_menu)
+            {
+
+            }
+            else if(currMenu == object_menu)
+            {
+
+            }
+            else if(currMenu == component_menu)
+            {
 
             }
         }
-        catch (IOException e)
-        {
-            System.out.println (e.getMessage());
-        }
+        // LE O PRIMEIRO
+        
 
     }
     
@@ -150,17 +167,9 @@ public class Console
         System.out.println("Digite o nome: ");
     }
 
-    public Menu getMenu()
+    public String[] getMenu()
     {
         return currMenu;
-    }
-
-    public enum Menu
-    {
-        GAME,
-        SCENE,
-        OBJECT,
-        COMPONENT
     }
 
 }   // Console

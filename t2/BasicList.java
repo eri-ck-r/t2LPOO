@@ -33,8 +33,4 @@ public abstract class BasicList<T> extends ArrayList<T>
         return false;
     }
 
-    public void for_each()
-    {
-        this.forEach(i -> ;
-    }
 }
