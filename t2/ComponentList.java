@@ -17,7 +17,7 @@ public class ComponentList extends BasicList<Component>
     }
     for(int i = 0 ; i < this.size(); i++)
     {
-      if(this.get(i).getName().equals(type))
+      if(this.get(i).getType().equals(type))
       {
         this.remove(i);
         return true;
@@ -26,9 +26,16 @@ public class ComponentList extends BasicList<Component>
     return false;
   }
 
-  public boolean addComponent(String type)
+  public boolean addComponent(Component newComp)
   {
-    //TODO: don't add if the list already has one of if
+    for(Component c : this)
+    {
+      if(c.getType().equals(newComp.getType()))  // Anti-efficient line
+      {
+        return false;
+      }
+    }
+    add(newComp);
     return true;
   }
 

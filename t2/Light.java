@@ -23,22 +23,16 @@ public class Light extends Component
     super(o);
     
   }
-  
-  public void inspect()
-  {
-	  this.general_inspect();
-	  System.out.printf("Type: %s\n", type.name());
-	  System.out.printf("Color: ");
-	  color.print("");
-  }
 
   @Override
-  public void displayAttributes()
+  public void displayAttributes(String s)
   {
-      //TODO
+    System.out.printf("%s      Type: %s\n", s, type.name());
+    System.out.printf("%s      Color: ", s);
+    color.print("");
   }
 
-  protected enum LightType
+  private enum LightType
   {
     PUNCTUAL,
     DIRECTIONAL

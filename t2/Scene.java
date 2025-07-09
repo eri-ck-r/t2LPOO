@@ -19,8 +19,8 @@ public class Scene
     root = new GameObjectList();
 
     GameObject cube = new GameObject(this, "Cube");
-    cube.addComponent(new Mesh(cube));
-
+    cube.addComponent(new Mesh(cube));  // Returns a boolean but it doesn't matter in here
+    
     GameObject light = new GameObject(this, "Light");
     light.addComponent(new Light(light));
 
@@ -30,6 +30,12 @@ public class Scene
     root.add(cube);
     root.add(light);
     root.add(main_camera);
+  }
+
+  public Scene(String name)
+  {
+    this();
+    this.name = name;
   }
 
   public String getName()
@@ -69,10 +75,11 @@ public class Scene
   
   public void display()
   {
-    System.out.println("Scene name: "+name);
-    System.out.println(name+"'s objects: ");
+    System.out.println("  Scene: " + name);
+    System.out.println("  {");
     for(GameObject obj : root)
-      obj.display();
+      obj.display("");
+    System.out.println("  }");
   }
   
 }  // Scene

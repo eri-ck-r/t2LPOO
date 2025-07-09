@@ -22,8 +22,7 @@ public class ObjectReader
 
     public static void main(String[] args)
     {
-        ObjectReader objr = new ObjectReader();
         Object s = ObjectReader.read();
-        System.out.println((s).toString());
+        System.out.println(((teste_ser)s).getName());
     }
 }

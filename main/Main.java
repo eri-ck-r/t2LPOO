@@ -16,12 +16,11 @@ public class Main
 {
   public static void main(String[] args)
   {
-    GameEngine e = new GameEngine();
-    Console c = new Console(e);
-    c.key_listener();
+    Console c = new Console();
+    c.terminal_interface();
     
-    Consumer<Integer> print = (n) -> { System.out.println(n); };
-    print.accept(2);
+    //Consumer<Integer> print = (n) -> { System.out.println(n); };
+    //print.accept(2);
   }
   
   

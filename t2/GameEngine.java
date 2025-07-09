@@ -10,9 +10,20 @@ public class GameEngine
 {
     private GameList games;
 
+    public GameEngine()
+    {
+        games = new GameList();
+    }
+
     public void addGame(Game game)
     {
         games.add(game);
+    }
+
+    public void addGame(String name)
+    {
+        Game newGame = new Game(name);
+        addGame(newGame);
     }
 
     public Game getGame(String name)

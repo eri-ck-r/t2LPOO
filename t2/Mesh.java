@@ -16,9 +16,37 @@ public class Mesh extends Component
     super(o);
   }
 
-  @Override
-  public void displayAttributes()
+  public Mesh(GameObject o, String name)
   {
-    //TODO
+    this(o);
+    this.name = name;
   }
+
+  public void setMaterial(String newMaterial)
+  {
+    material = newMaterial;
+  }
+
+  public String getMaterial()
+  {
+    return material;
+  }
+
+  public void setName(String newName)
+  {
+    name = newName;
+  }
+
+  public String getName()
+  {
+    return name;
+  }
+
+  @Override
+  public void displayAttributes(String s)
+  {
+    System.out.println(s + "      Name: " + name);
+    System.out.println(s + "      Material: " + material);
+  }
+
 }  // Mesh

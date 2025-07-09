@@ -26,8 +26,8 @@ public class GameObject
 
     public GameObject(Scene s, String name)
     {
+        this(s);
         this.name = name;
-        scene = s;
     }
 
     public String getName()
@@ -70,32 +70,29 @@ public class GameObject
         //TODO
     }
 
-    public void display()
+    public void display(String s)
     {
-        System.out.println("Object name: "+name);
+        System.out.println(s + "    Object name: "+name);
+        s = s + "  ";
+        System.out.println(s + "  {");
         if(parent != null)
-            System.out.println(name+"'s parent: "+parent.getName());
-        System.out.println(name+"'s "+components.size()+" components");
+            System.out.println(s + "    Parent: " + parent.getName());
+        System.out.println(s + "    Components:");
+        System.out.println(s + "    {");
         for(Component c : components)
-            c.display();
-        System.out.println(name+"'s "+children.size()+" children: ");
+            c.display(s);
+        System.out.println(s + "    }");
+        System.out.println(s + "    Children:");
+        System.out.println(s + "    {");
         for(GameObject obj : children)
-            obj.display();
-
+            obj.display(s + "  ");
+        System.out.println(s + "    }");
+        System.out.println(s + "  }");
     }
 
-    public void addComponent(Component component)
+    public boolean addComponent(Component component)
     {
-        String newCompType = component.getName();
-        for (Component c : components)
-        {
-            if(c.getName().equals(newCompType))
-            {
-                System.out.println(newCompType+" already exists");
-                return;
-            }
-        }
-        components.add(component);
+        return components.addComponent(component);
     }
 
     public boolean removeComponent(String name)

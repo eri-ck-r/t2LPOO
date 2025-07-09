@@ -10,18 +10,41 @@ public class Camera extends Component
 {
   private CameraType type;
   private double angle;
-  private double[] d;
+  private Point2 planeDist;
   
   public Camera(GameObject o)
   {
     super(o);
     type = CameraType.PARALLEL;
+    planeDist = new Point2();
   }
 
   @Override
-  public void displayAttributes()
+  public void displayAttributes(String s)
   {
-    //TODO
+    System.out.println(s + "      Type: " + type.name());
+    System.out.println(s + "      Angle: " + angle);
+    planeDist.print(s + "      Distance: ");
+  }
+
+  public void setAngle(double x)
+  {
+    angle = x;
+  }
+
+  public double getAngle()
+  {
+    return angle;
+  }
+
+  public void setPlaneDist(double x, double y)
+  {
+    planeDist = planeDist.move(x - planeDist.x, y - planeDist.y);
+  }
+
+  public Point2 getPlaneDist()
+  {
+    return planeDist;
   }
 
   private enum CameraType
