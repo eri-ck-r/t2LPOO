@@ -17,7 +17,7 @@ public class ComponentList extends BasicList<Component>
     }
     for(int i = 0 ; i < this.size(); i++)
     {
-      if(this.get(i).getType().equals(type))
+      if(this.get(i).getName().equals(type))
       {
         this.remove(i);
         return true;
@@ -30,7 +30,7 @@ public class ComponentList extends BasicList<Component>
   {
     for(Component c : this)
     {
-      if(c.getType().equals(newComp.getType()))  // Anti-efficient line
+      if(c.getName().equals(newComp.getName()))  // Anti-efficient line
       {
         return false;
       }

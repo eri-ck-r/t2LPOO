@@ -141,12 +141,13 @@ public class Console
     {
         if(i == 1)
         {
-            currGame = engine.getGame(ask_name());
+            String name = ask_name();
+            currGame = engine.getGame(name);
             if(currGame != null)
                 currMenu = game_menu;
             else
             {
-                invalid("name");
+                notFound(name);
                 pause();
             }
         }
@@ -156,10 +157,11 @@ public class Console
         }
         else if(i == 3)
         {
-            if(engine.removeGame(ask_name()))
+            String name = ask_name();
+            if(engine.removeGame(name))
                 System.out.println("Game successfully removed!");
             else
-                invalid("name");
+                notFound(name);
             pause();
         }
         else if(i == 4)
@@ -182,7 +184,10 @@ public class Console
 
     private boolean game_menu_options(int i)
     {
-        
+        if(i == 1)
+        {
+
+        }
         return false;
     }
 
@@ -225,6 +230,11 @@ public class Console
     private void invalid(String s)
     {
         System.out.println("Invalid " + s + "!");
+    }
+
+    private void notFound(String s)
+    {
+        System.out.println(s + " not found!");
     }
 
 }   // Console

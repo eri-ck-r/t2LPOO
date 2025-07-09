@@ -6,7 +6,7 @@
 
 package t2;
 
-public abstract class Component
+public abstract class Component implements NamedObject
 {
   private final GameObject o;
 
@@ -20,14 +20,15 @@ public abstract class Component
    * @return "Transform" or "Mesh" or "Camera" or "Light"
    * 		 depending on where it was invoked
    */
-  public String getType()
+  @Override
+  public String getName()
   {
     return this.getClass().getSimpleName();
   }
 
   public void display(String s)
   {
-    System.out.println(s + "      " + getType());
+    System.out.println(s + "      " + getName());
     s = s + "  ";
     System.out.println(s + "    {");
     System.out.println(s + "      Parent: " + o.getName());

@@ -8,7 +8,7 @@ package t2;
 
 import java.util.function.Consumer;
 
-public class Game
+public class Game implements NamedObject
 {
   private SceneList scenes;
   public String name;
@@ -44,6 +44,17 @@ public class Game
   public void clear()
   {
     scenes.clear();
+  }
+
+  public void setName(String s)
+  {
+    name = s;
+  }
+
+  @Override
+  public String getName()
+  {
+    return name;
   }
 
   public void forAll(Consumer<Scene> f)

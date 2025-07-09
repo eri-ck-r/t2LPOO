@@ -6,7 +6,7 @@
 
 package t2;
 
-public class GameObject
+public class GameObject implements NamedObject
 {
     protected String name;
     private Scene scene;
@@ -30,6 +30,7 @@ public class GameObject
         this.name = name;
     }
 
+    @Override
     public String getName()
     {
         return name;

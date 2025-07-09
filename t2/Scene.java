@@ -5,8 +5,10 @@
  */
 
 package t2;
+
 import java.util.function.Consumer;
-public class Scene
+
+public class Scene implements NamedObject
 {
   private String name;
   private GameObjectList root;
@@ -38,6 +40,7 @@ public class Scene
     this.name = name;
   }
 
+  @Override
   public String getName()
   {
     return name;
