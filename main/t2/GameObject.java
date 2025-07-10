@@ -80,22 +80,23 @@ public class GameObject implements NamedObject, Serializable
 
     public void display(String s)
     {
-        System.out.println(s + "    Object name: "+name);
-        s = s + "  ";
-        System.out.println(s + "  {");
-        if(parent != null)
-            System.out.println(s + "    Parent: " + parent.getName());
-        System.out.println(s + "    Components:");
-        System.out.println(s + "    {");
-        for(Component c : components)
-            c.display(s);
-        System.out.println(s + "    }");
-        System.out.println(s + "    Children:");
-        System.out.println(s + "    {");
-        for(GameObject obj : children)
-            obj.display(s + "  ");
-        System.out.println(s + "    }");
-        System.out.println(s + "  }");
+        System.out.println(s + "Object name: "+name);
+        System.out.println(s + "{");
+        String aux = s + "  ";
+        System.out.println(s + "Parent: " + parent != null ? parent.getName() : "null");
+        System.out.println(aux + "Components:");
+        System.out.println(aux + "{");
+        
+        components.forEach( c -> {c.display(aux);});
+        
+        System.out.println(aux + "}");
+        System.out.println(aux + "Children:");
+        System.out.println(aux + "{");
+        
+        children.forEach( o -> {o.display(aux + "  ");});
+
+        System.out.println(aux + "}");
+        System.out.println(s + "}");
     }
 
     public boolean addComponent(Component component)

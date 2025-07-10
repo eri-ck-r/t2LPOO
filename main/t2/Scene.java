@@ -81,12 +81,12 @@ public class Scene implements NamedObject, Serializable
     root.forEach(f);
   }
   
-  public void display()
+  public void display(String s)
   {
     System.out.println("  Scene: " + name);
     System.out.println("  {");
     for(GameObject obj : root)
-      obj.display("");
+      obj.display(s + "  ");
     System.out.println("  }");
   }
   

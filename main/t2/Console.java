@@ -334,7 +334,8 @@ public class Console
             }
             case 7:
             {
-                currScene.display();
+                currScene.display("");
+                sc.nextLine();
                 break;
             }
             case 8:
@@ -437,6 +438,7 @@ public class Console
             case 10:
             {
                 currGameObject.display("");
+                sc.nextLine();
                 break;
             }
             case 11:
@@ -469,6 +471,7 @@ public class Console
             case 2:
             {
                 currComponent.displayAttributes("");
+                sc.nextLine();
                 break;
             }
             case 3:

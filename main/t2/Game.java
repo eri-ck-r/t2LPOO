@@ -73,7 +73,9 @@ public class Game implements NamedObject, Serializable
   {
     System.out.println("Game: " + name);
     System.out.println("{");
-    forAll(s -> {s.display();});
+
+    forAll(s -> {s.display("  ");});
+    
     System.out.println("}");
   }
 
