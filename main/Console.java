@@ -12,16 +12,13 @@ import t2.*;
 
 public class Console
 {
-    GameEngine engine;
-    Game currGame;
-    Scene currScene;
-    GameObject currGameObject;
-    Component currComponent;
+    static GameEngine engine;
+    static Game currGame;
+    static Scene currScene;
+    static GameObject currGameObject;
+    static Component currComponent;
 
-    Scanner sc = new Scanner(System.in);
-
-    private String[] currMenu = engine_menu;
-
+    static Scanner sc = new Scanner(System.in);
 
     static final String[] engine_menu = {
         "Edit game;", 
@@ -78,6 +75,8 @@ public class Console
         "Return;",
         "Exit."
     };
+    
+    static private String[] currMenu = engine_menu;
 
     public Console(GameEngine engine)
     {
@@ -119,7 +118,8 @@ public class Console
     private boolean nextMenuSelector()
     {
         int i = sc.nextInt();
-        
+        sc.nextLine();
+
         if(currMenu == engine_menu)
             return engine_menu_options(i);
 
@@ -140,7 +140,8 @@ public class Console
     {
         if(i == 1)
         {
-            String name = ask_name();
+            String name = get_input_name();
+            System.out.println("! " + name + "!");
             currGame = engine.getGame(name);
             if(currGame != null)
                 currMenu = game_menu;
@@ -152,11 +153,11 @@ public class Console
         }
         else if(i == 2)
         {
-            engine.addGame(ask_name());
+            engine.addGame(get_input_name());
         }
         else if(i == 3)
         {
-            String name = ask_name();
+            String name = get_input_name();
             if(engine.removeGame(name))
                 System.out.println("Game successfully removed!");
             else
@@ -183,66 +184,96 @@ public class Console
 
     private boolean game_menu_options(int i)
     {
-        if(i == 1)
+        switch(i)
         {
-            String name = ask_name();
-            currScene = currGame.getScene(name);
-            if(currScene != null)
-                currMenu = scene_menu;
-            else
+            case 1:
             {
-                notFound(name);
-                pause();
+                String name = get_input_name();
+                currScene = currGame.getScene(name);
+                if(currScene != null)
+                    currMenu = scene_menu;
+                else
+                {
+                    notFound(name);
+                    pause();
+                }
+                break;
             }
-        }
-        else if(i == 2)
-        {
-            currGame.addScene(ask_name());
-        }
-        else if(i == 3)
-        {
-            // LER DE ARQUIVO
-        }
-        else if(i == 4)
-        {
-            // ESCREVER EM ARQUIVO
-        }
-        else if(i == 5)
-        {
-            String name = ask_name();
+            case 2:
+            {
+                currGame.addScene(get_input_name());
+                break;
+            }
+            case 3:
+            {
+                
+                break;
+            }
+            case 4:
+            {
+                
+                break;
+            }
+            case 5:
+            {
+            String name = get_input_name();
             if(currGame.removeScene(name))
                 System.out.println("Scene successfully removed!");  // Refactor later
             else
                 notFound(name);
             pause();
+                break;
+            }
+            case 6:
+            {
+                currGame.clear();
+                break;
+            }
+            case 7:
+            {
+                currGame.display();
+                break;
+            }
+            case 8:
+            {
+                currMenu = engine_menu;
+                break;    
+            }
+            case 9:
+            {
+                return true;
+                   
+            }
+            default:
+            {
+                invalid("number");
+                pause();
+            }
         }
-        else if(i == 6)
-        {
-            currGame.clear();
-        }
-        else if(i == 7)
-        {
-            currGame.display();
-        }
-        else if(i == 8)
-        {
-            currMenu = engine_menu;
-        }
-        else if(i == 9)
-        {
-            return true;
-        }
-        else
-        {
-            invalid("number");
-            pause();
-        }
-        return false;
+            return false;
     }
 
     private boolean scene_menu_options(int i)
     {
-        
+        switch(i)
+        {
+            case 1:
+            {
+                System.out.println(currScene.getName());
+                break;
+            }
+            case 2:
+            {
+                String new_name = get_input_name();
+                currScene.setName(new_name);
+                break;
+            }
+            case 3:
+            {
+                String new_obj_name = get_input_name();
+                currScene.addObject(new_obj_name);
+            }
+        }
         return false;
     }
 
@@ -258,13 +289,13 @@ public class Console
         return false;
     }
 
-    public String ask_name()
+    static public String get_input_name()
     {
         System.out.printf("Type the name: ");
-        return sc.next();
+        return sc.nextLine();
     }
 
-    private void pause()
+    static private void pause()
     {
         try
         {
@@ -281,7 +312,7 @@ public class Console
         System.out.println("Invalid " + s + "!");
     }
 
-    private void notFound(String s)
+    static private void notFound(String s)
     {
         System.out.println(s + " not found!");
     }
