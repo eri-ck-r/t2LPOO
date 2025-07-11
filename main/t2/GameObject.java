@@ -7,6 +7,7 @@
 package t2;
 
 import java.io.Serializable;
+import java.util.function.Consumer;
 
 public class GameObject implements NamedObject, Serializable
 {
@@ -15,15 +16,15 @@ public class GameObject implements NamedObject, Serializable
     private GameObject parent;
     private GameObjectList children;
     private ComponentList components;
-    private Transform transform;  // e pode?
-
+    private Transform transform;
+    
     public GameObject(Scene s)
     {
         scene = s;
         children = new GameObjectList();
         components = new ComponentList();
-        transform = new Transform(this);
-        components.add(transform);  // Não entendi
+        components.add(new Transform(this));
+        transform = (Transform)components.getFirst();
     }
 
     public GameObject(Scene s, String name)
@@ -68,14 +69,78 @@ public class GameObject implements NamedObject, Serializable
     //
     // Ou seja, não dá pra deixar Transform
     // ficar independente de GameObjectList
-    public void clear()
+    public void clearChildren()
     {
         children.clear();
     }
 
-    public void forEach()
+    public void forEachChildren(Consumer<GameObject> f)
     {
-        //TODO
+        children.forEach(f);
+    }
+
+    public boolean addComponent(Component component)
+    {
+        return components.addComponent(component);
+    }
+
+    public boolean removeComponent(String name)
+    {
+        return components.removeComponent(name);
+    }
+
+    public void clearComponents()
+    {
+        var transform = components.getFirst();
+        components.clear();
+        components.add(transform);
+    }
+
+    /**
+     *
+     * @param v New position
+     * @param allChildren True to apply new offset to all children
+     */
+    public void changePosition(Vector3 v, boolean allChildren)
+    {
+        Vector3 dPos = v.sub(transform.getPosition());
+        transform.setPosition(v);
+        if(allChildren)
+        {
+            for (GameObject child : children)
+            child.transform.setPosition(dPos);
+        }
+    }
+    
+    /**
+     *
+     * @param v New rotation
+     * @param allChildren True to apply new rotation offset to all children
+     */
+    public void changeRotation(Vector3 v, boolean allChildren)
+    {
+        Vector3 dRotation = v.sub(transform.getRotation());
+        transform.setRotation(v);
+        if(allChildren)
+        {
+            for(GameObject child : children)
+            child.transform.setRotation(dRotation);
+        }
+    }
+    
+    /**
+     *
+     * @param s New scale
+     * @param allChildren True to apply new scale to all children
+     */
+    public void changeScale(double s, boolean allChildren)
+    {
+        transform.setScale(s);
+        if(allChildren)
+        {
+            for(GameObject child : children)
+                child.transform.setScale(s);
+            }
     }
 
     public void display(String s)
@@ -94,75 +159,8 @@ public class GameObject implements NamedObject, Serializable
         System.out.println(aux + "{");
         
         children.forEach( o -> {o.display(aux + "  ");});
-
+    
         System.out.println(aux + "}");
         System.out.println(s + "}");
-    }
-
-    public boolean addComponent(Component component)
-    {
-        return components.addComponent(component);
-    }
-
-    public boolean removeComponent(String name)
-    {
-        return components.removeComponent(name);
-    }
-
-    public void removeAllComponents()
-    {
-        Component transform = components.getFirst();
-        components.clear();
-        components.add(transform);
-    }
-
-    /**
-     *
-     * @param v New position
-     * @param allChildren True to apply new offset to all children
-     */
-    public void changePosition(Vector3 v, boolean allChildren)
-    {
-        // TODO mudar para todos os objetos filho desse com o offset desse
-        Vector3 dPos = v.sub(transform.getPosition());
-        transform.setPosition(v);
-        if(allChildren)
-        {
-            for (GameObject child : children)
-                child.transform.setPosition(dPos);
-        }
-    }
-
-    /**
-     *
-     * @param v New rotation
-     * @param allChildren True to apply new rotation offset to all children
-     */
-    public void changeRotation(Vector3 v, boolean allChildren)
-    {
-        // TODO mudar para todos os objetos filho desse com o offset desse
-        Vector3 dRotation = v.sub(transform.getRotation());
-        transform.setRotation(v);
-        if(allChildren)
-        {
-            for(GameObject child : children)
-                child.transform.setRotation(dRotation);
-        }
-    }
-
-    /**
-     *
-     * @param s New scale
-     * @param allChildren True to apply new scale to all children
-     */
-    public void changeScale(double s, boolean allChildren)
-    {
-        // TODO mudar para todos os objetos filhos
-        transform.setScale(s);
-        if(allChildren)
-        {
-            for(GameObject child : children)
-                child.transform.setScale(s);
-        }
     }
 }
