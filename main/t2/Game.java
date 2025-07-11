@@ -12,12 +12,12 @@ import java.io.Serializable;
 
 public class Game implements NamedObject, Serializable
 {
-  private SceneList scenes;
+  private BasicList<Scene> scenes;
   public String name;
 
   public Game()
   {
-    scenes = new SceneList();
+    scenes = new BasicList<Scene>();
     scenes.add(new Scene("Main Scene"));
   }
 

@@ -14,14 +14,14 @@ public class GameObject implements NamedObject, Serializable
     protected String name;
     private Scene scene;
     private GameObject parent;
-    private GameObjectList children;
+    private BasicList<GameObject> children;
     private ComponentList components;
     private Transform transform;
     
     public GameObject(Scene s)
     {
         scene = s;
-        children = new GameObjectList();
+        children = new BasicList<GameObject>();
         components = new ComponentList();
         components.add(new Transform(this));
         transform = (Transform)components.getFirst();

@@ -8,11 +8,11 @@ package t2;
 
 public class GameEngine
 {
-    private GameList games;
+    private BasicList<Game> games;
 
     public GameEngine()
     {
-        games = new GameList();
+        games = new BasicList<Game>();
     }
 
     public void addGame(Game game)

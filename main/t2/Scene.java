@@ -11,14 +11,14 @@ import java.io.Serializable;
 public class Scene implements NamedObject, Serializable
 {
   private String name;
-  private GameObjectList root;
+  private BasicList<GameObject> root;
   
   public Scene()
   {
     // Quando uma nova cena, S, eh criada, esta conterá
     // tres novos objetos de jogo chamados (1) Cube, (2) Light, e (3) Main Camera.
     // Components: Cube terá Mesh; Light terá Light; Main Camera terá Camera.
-    root = new GameObjectList();
+    root = new BasicList<GameObject>();
 
     GameObject cube = new GameObject(this, "Cube");
     cube.addComponent(new Mesh(cube));  // Returns a boolean but it doesn't matter in here
