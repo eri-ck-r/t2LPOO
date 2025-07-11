@@ -221,7 +221,7 @@
          }
          else if(i == 6)
          {
-             currGame.clear();
+             currGame.clearScenes();
          }
          else if(i == 7)
          {
