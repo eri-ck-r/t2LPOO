@@ -60,7 +60,7 @@ public class Console
         "Remove child object;",
         "Remove all child objects",
         "Edit child object;",
-        //"Edit component;",
+        "Edit Transform;",
         "Add component;",
         "Remove component;",
         "Remove all components;",
@@ -276,7 +276,7 @@ public class Console
 
             case 6:
             {
-                currGame.clear();
+                currGame.clearScenes();
                 break;
             }
 
@@ -420,7 +420,7 @@ public class Console
 
             case 5:
             {
-                currGameObject.clear();
+                currGameObject.clearChildren();
                 break;
             }
 
@@ -442,6 +442,63 @@ public class Console
 
             case 7:
             {
+                System.out.println("1. Edit Position;");
+                System.out.println("2. Edit Rotation;");
+                System.out.println("3. Edit Scale;");
+                System.out.print("Select: ");
+                int opt = sc.nextInt();
+
+                switch(opt)
+                {
+                    case 1:
+                    {
+                        Vector3 newPos = new Vector3();
+                        double coord;
+                        System.out.println("Type the new position: ");
+                        coord = sc.nextDouble();
+                        newPos.set(0, coord);
+                        coord = sc.nextDouble();
+                        newPos.set(1, coord);
+                        coord = sc.nextDouble();
+                        newPos.set(2, coord);
+                        currGameObject.changePosition(newPos, false);
+                        break;
+                    }
+
+                    case 2:
+                    {
+                        Vector3 newRot = new Vector3();
+                        double coord;
+                        System.out.println("Type the new rotation: ");
+                        coord = sc.nextDouble();
+                        newRot.set(0, coord);
+                        coord = sc.nextDouble();
+                        newRot.set(1, coord);
+                        coord = sc.nextDouble();
+                        newRot.set(2, coord);
+                        currGameObject.changeRotation(newRot, false);
+                        break;
+                    }
+
+                    case 3:
+                    {
+                        System.out.println("Type the new scale: ");
+                        currGameObject.changeScale(sc.nextInt(), false);
+                        break;
+                    }
+
+                    default:
+                    {
+                        System.out.println("Invalid " + "number" + "!");
+                        pause();
+                        break;
+                    }
+                }
+                break;
+            }
+
+            case 8:
+            {
                 String newComponent = getInputName();
                 switch(newComponent)    
                 {   
@@ -455,32 +512,32 @@ public class Console
                 break;
             }
 
-            case 8:
+            case 9:
             {
                 currGameObject.removeComponent(getInputName());
                 break;
             }
 
-            case 9:
+            case 10:
             {
-                currGameObject.removeAllComponents();
+                currGameObject.clearComponents();
                 break;
             }
 
-            case 10:
+            case 11:
             {
                 currGameObject.display("");
                 sc.nextLine();
                 break;
             }
 
-            case 11:
+            case 12:
             {
                 currMenu = scene_menu;
                 break;
             }
 
-            case 12:
+            case 13:
             {
                 return true;
             }
