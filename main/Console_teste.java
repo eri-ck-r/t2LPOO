@@ -7,7 +7,7 @@
  //package main;
 
  import java.util.*;
- import java.io.*;
+ 
  import t2.*;
  
  public class Console_teste

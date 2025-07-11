@@ -5,8 +5,8 @@
  */
 
 package t2;
-import java.io.Serializable;
-public class Transform extends Component implements Serializable
+
+public class Transform extends Component 
 {
     private Vector3 position;
     private Vector3 rotation;

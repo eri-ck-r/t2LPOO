@@ -5,8 +5,8 @@
  */
 
 package t2;
-import java.io.Serializable;
-public class VectorElementInfo extends VectorElement implements Serializable
+
+public class VectorElementInfo extends VectorElement
 {
   public VectorElementInfo(int i)
   {

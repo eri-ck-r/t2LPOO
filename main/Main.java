@@ -4,11 +4,6 @@
  * @author Luiz Alexandre Espindola Cunha
  */
 
-package main;
-
-import java.io.DataInputStream;
-import java.io.IOException;
-import java.util.function.Consumer;
 
 import t2.*;
 

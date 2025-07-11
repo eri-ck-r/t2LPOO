@@ -6,7 +6,7 @@
 
 package t2;
 
-import java.util.*;
+
 
 public class GameObjectList extends BasicList<GameObject>
 {

@@ -7,8 +7,8 @@
 package t2;
 
 import java.util.ArrayList;
-import java.io.Serializable;
-public abstract class BasicList<T extends NamedObject> extends ArrayList<T> implements Serializable
+
+public abstract class BasicList<T extends NamedObject> extends ArrayList<T> 
 {
     public T getElement(String name)
     {

@@ -5,10 +5,9 @@
  */
 
 package t2;
-import java.io.Serializable;
-import java.util.*;
 
-public class SceneList extends BasicList<Scene> implements Serializable
+
+public class SceneList extends BasicList<Scene>
 {
   
   
