@@ -12,7 +12,7 @@ public class Main
   public static void main(String[] args)
   {
     Console c = new Console();
-    c.terminal_interface();
+    c.terminalInterface();
     
     //Consumer<Integer> print = (n) -> { System.out.println(n); };
     //print.accept(2);

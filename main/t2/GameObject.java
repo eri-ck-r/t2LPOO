@@ -83,7 +83,7 @@ public class GameObject implements NamedObject, Serializable
         System.out.println(s + "Object name: "+name);
         System.out.println(s + "{");
         String aux = s + "  ";
-        System.out.println(s + "Parent: " + parent != null ? parent.getName() : "null");
+        System.out.println(s + "Parent: " + (parent != null ? parent.getName() : "null"));
         System.out.println(aux + "Components:");
         System.out.println(aux + "{");
         
