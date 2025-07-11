@@ -17,9 +17,8 @@ public class Game implements NamedObject, Serializable
 
   public Game()
   {
-    Scene mainScene = new Scene("Main Scene");  // Every game starts with "main scene"
     scenes = new SceneList();
-    scenes.add(mainScene);
+    scenes.add(new Scene("Main Scene"));
   }
 
   public Game(String name)
@@ -48,7 +47,7 @@ public class Game implements NamedObject, Serializable
     return scenes.getElement(name);
   }
 
-  public void clear()
+  public void clearScenes()
   {
     scenes.clear();
   }
@@ -64,7 +63,7 @@ public class Game implements NamedObject, Serializable
     return name;
   }
 
-  public void forAll(Consumer<Scene> f)
+  public void forEachScene(Consumer<Scene> f)
   {
     scenes.forEach(f);
   }
@@ -74,7 +73,7 @@ public class Game implements NamedObject, Serializable
     System.out.println("Game: " + name);
     System.out.println("{");
 
-    forAll(s -> {s.display("  ");});
+    forEachScene(s -> {s.display("  ");});
     
     System.out.println("}");
   }
