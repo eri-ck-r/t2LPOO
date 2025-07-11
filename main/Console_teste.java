@@ -80,7 +80,7 @@
  
      public Console_teste(GameEngine engine)
      {
-         this.engine = engine;
+         Console_teste.engine = engine;
      }
  
      public Console_teste()
