@@ -17,6 +17,4 @@ public class Main
     //Consumer<Integer> print = (n) -> { System.out.println(n); };
     //print.accept(2);
   }
-  
-  
 }  // Main
