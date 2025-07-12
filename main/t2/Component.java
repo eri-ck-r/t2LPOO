@@ -31,13 +31,12 @@ public abstract class Component implements NamedObject, Serializable
 
   public final void display(String s)
   {
-    System.out.println(s + "      " + getName());
-    s = s + "  ";
-    System.out.println(s + "    {");
-    System.out.println(s + "      Parent: " + o.getName());
-    displayAttributes(s);
-    System.out.println(s + "    }");
-
+    System.out.println(s + getName());
+    String aux = s + "  ";
+    System.out.println(s + "{");
+    System.out.println(aux + "Parent: " + o.getName());
+    displayAttributes(aux);
+    System.out.println(s + "}");
   }
 
   public abstract void displayAttributes(String s);

@@ -6,12 +6,13 @@
 
 package t2;
 
-import java.util.*;
 import java.io.Serializable;
+import java.util.*;
 public final class Vector3
   implements Iterable<VectorElementInfo>,
   Serializable
 {
+  private static final long serialVersionUID = 4025;
   private final int _n;
   private final double[] _data;
   

@@ -10,6 +10,7 @@ package t2;
 import java.io.Serializable;
 public class Point2 implements Serializable
 {
+  private static final long serialVersionUID = 8044;
   public double x;
   public double y;
 

@@ -6,8 +6,10 @@
 
 package t2;
 
-import java.util.*;
 import java.io.*;
+import java.util.*;
+import t2.Camera.CameraType;
+import t2.Light.LightType;
 
 
 public class Console
@@ -60,7 +62,7 @@ public class Console
         "Remove child object;",
         "Remove all child objects",
         "Edit child object;",
-        "Edit Transform;",
+        "Edit component;",
         "Add component;",
         "Remove component;",
         "Remove all components;",
@@ -71,9 +73,50 @@ public class Console
 
     static final String[] component_menu = {
         "Get class;",
+        "Edit attributes;",
         "Inspect;",
         "Return;",
         "Exit."
+    };
+
+    static final String[] transform_menu = {
+        "Edit position;",
+        "Edit rotation;",
+        "Edit scale;",
+        "Return;",
+        "Exit."
+    };
+    
+    static final String[] mesh_menu = {
+        "Edit name;",
+        "Edit material;",
+        "Return;",
+        "Exit."
+    };
+
+    static final String[] light_menu = {
+        "Edit color;",
+        "Edit type;",
+        "Return;",
+        "Exit."
+    };
+
+    static final String[] light_type_menu = {
+        "Punctual;",
+        "Directional."
+    };
+
+    static final String[] camera_menu = {
+        "Edit type;",
+        "Edit angle;",
+        "Edit clipping planes distance;",
+        "Return;",
+        "Exit."
+    };
+    
+    static final String[] camera_type_menu = {
+        "Parallel;",
+        "Perspective."
     };
     
     static private String[] currMenu = engine_menu;
@@ -100,15 +143,23 @@ public class Console
         while(!exit)
         {
             clearTerminal();
-            showMenu(currMenu);
+            if(currMenu == engine_menu)
+                showMenu(currMenu, "Engine");
+            else if(currMenu == game_menu)
+                showMenu(currMenu, "Game: " + currGame.getName());
+            else if(currMenu == scene_menu)
+                showMenu(currMenu, "Scene: " + currScene.getName());
+            else if(currMenu == object_menu)
+                showMenu(currMenu, "Object: " + currGameObject.getName());
+            else // if(currMenu == component_menu)
+                showMenu(currMenu, "Component: " + currComponent.getName());
             exit = nextMenuSelector();
         }
-
     }
     
-    public void showMenu(String[] options)
+    public void showMenu(String[] options, String type)
     {
-        msgMenuHeader();
+        System.out.println("-------------- " + type + " --------------");
         for(int j = 0; j < options.length; ++j)
         {
             System.out.printf("%d - %s\n", j+1, options[j]);
@@ -118,8 +169,8 @@ public class Console
 
     private boolean nextMenuSelector()
     {
-        int i = sc.nextInt();
-        sc.nextLine();
+        String i = sc.nextLine();
+        //sc.nextLine();
 
         if(currMenu == engine_menu)
             return engineMenuOptions(i);
@@ -133,18 +184,36 @@ public class Console
         else if(currMenu == object_menu)
             return objectMenuOptions(i);
 
-        else  // if(currMenu == component_menu)
+        else if(currMenu == component_menu)
             return componentMenuOptions(i);
+
+        else if(currMenu == transform_menu)
+            return transformMenuOptions(i);
+
+        else if(currMenu == mesh_menu)
+            return meshMenuOptions(i);
+
+        else if(currMenu == light_menu)
+            return lightMenuOptions(i);
+
+        else if(currMenu == light_type_menu)
+            return lightTypeMenuOptions(i);
+
+        else if(currMenu == camera_menu)
+            return cameraMenuOptions(i);
+
+        else // if(currMenu == camera_type_menu)
+            return cameraTypeMenuOptions(i);
     }
 
-    private boolean engineMenuOptions(int i)
+    private boolean engineMenuOptions(String i)
     {
         switch(i)
         {
-            case 1:
+            case "1" ->             
             {
-                String sceneToEdit = getInputName();
-                Game temp = engine.getGame(sceneToEdit);
+                String gameToEdit = getInputName("game");
+                Game temp = engine.getGame(gameToEdit);
                 if(temp != null)
                 {
                     currMenu = game_menu;
@@ -152,62 +221,58 @@ public class Console
                 }
                 else
                 {
-                    System.out.println(sceneToEdit + " not found!");
+                    System.out.println(gameToEdit + " not found!");
                     pause();
                 }
-                break;
             }
 
-            case 2:
+            case "2" ->             
             {
-                engine.addGame(getInputName());
-                break;
+                engine.addGame(getInputName("game"));
             }
 
-            case 3:
+            case "3" ->             
             {
-                String sceneToEdit = getInputName();
-                if(engine.removeGame(sceneToEdit))
+                String gameToEdit = getInputName("game");
+                    if(engine.removeGame(gameToEdit))
                     System.out.println("Successfully removed!");
                 else
-                    System.out.println(sceneToEdit + " not found!");
+                    System.out.println(gameToEdit + " not found!");
                 pause();
-                break;
             }
 
-            case 4:
+            case "4" ->             
             {
                 engine.clear();
-                break;
             }
 
-            case 5:
+            case "5" ->             
             {
                 engine.display();
                 sc.nextLine();
-                break;
             }
-            case 6:
+
+            case "6" -> 
             {
                 return true;
             }
 
-            default:
+            default ->
             {
-                System.out.println("Invalid " + "number" + "!");
+                System.out.println("Invalid number!");
                 pause();
             }
         }
         return false;
     }
 
-    private boolean gameMenuOptions(int i)
+    private boolean gameMenuOptions(String i)
     {
         switch(i)
         {
-            case 1:
+            case "1" ->
             {
-                String sceneToEdit = getInputName();
+                String sceneToEdit = getInputName("scene");
                 Scene temp = currGame.getScene(sceneToEdit);
                 if(temp != null)
                 {
@@ -219,135 +284,122 @@ public class Console
                     System.out.println(sceneToEdit + " not found!");
                     pause();
                 }
-                break;
             }
 
-            case 2:
+            case "2" ->
             {
-                currGame.addScene(getInputName());
-                break;
+                currGame.addScene(getInputName("scene"));
             }
 
-            case 3:
+            case "3" ->
             {
-                String file_name = getInputName();
-                try(FileInputStream in = new FileInputStream(file_name);
-                ObjectInputStream objIn = new ObjectInputStream(in))
+                String fileName = getInputName("file");
+                try(FileInputStream in = new FileInputStream(fileName);
+                    ObjectInputStream objIn = new ObjectInputStream(in))
                 {
                     currGame.addScene((Scene)objIn.readObject());
                 }
-                catch(Exception e)
+                catch(IOException | ClassNotFoundException e)
                 {
                     System.out.println(e.getMessage());
+                    pause();
                 }
-                break;
             }
 
-            case 4:
+            case "4" ->
             {
-                String fileName = getInputName();
+                String fileName = getInputName("file");
                 try(FileOutputStream out = new FileOutputStream(fileName);
-                ObjectOutputStream objOut = new ObjectOutputStream(out))
+                    ObjectOutputStream objOut = new ObjectOutputStream(out))
                 {
-                    String scene_to_write = getInputName();
-                    Scene temp = currGame.getScene(scene_to_write);
+                    String sceneToWrite = getInputName("scene");
+                    Scene temp = currGame.getScene(sceneToWrite);
                     if(temp != null)
-                        objOut.writeObject(currGame.getScene(scene_to_write));
+                        objOut.writeObject(currGame.getScene(sceneToWrite));
                     else
-                        System.out.println(scene_to_write + " not found!");
+                        System.out.println(sceneToWrite + " not found!");
                 }
                 catch(Exception e)
                 {
                     System.out.println(e.getMessage());
                 }
-                break;
             }
 
-            case 5:
+            case "5" ->
             {
-                String editScene = getInputName();
+                String editScene = getInputName("scene");
                 if(currGame.removeScene(editScene))
                     System.out.println("Successfully removed!");
                 else
                     System.out.println(editScene + " not found!");
                 pause();
-                break;
             }
 
-            case 6:
+            case "6" ->
             {
                 currGame.clearScenes();
-                break;
             }
 
-            case 7:
+            case "7" ->
             {
                 currGame.display();
                 sc.nextLine();
-                break;
             }
 
-            case 8:
+            case "8" ->
             {
                 currMenu = engine_menu;
-                break;    
             }
 
-            case 9:
+            case "9" ->
             {
                 return true;
-                   
             }
 
-            default:
+            default ->
             {
-                System.out.println("Invalid " + "number" + "!");
+                System.out.println("Invalid number!");
                 pause();
             }
         }
             return false;
     }
 
-    private boolean sceneMenuOptions(int i)
+    private boolean sceneMenuOptions(String i)
     {
         switch(i)
         {
-            case 1:
+            case "1" ->
             {
                 System.out.println(currScene.getName());
-                break;
             }
 
-            case 2:
+            case "2" ->
             {
-                String newName = getInputName();
+                String newName = getInputName("new scene's");
                 currScene.setName(newName);
-                break;
             }
 
-            case 3:
+            case "3" ->
             {
-                String newObj = getInputName();
+                String newObj = getInputName("object");
                 currScene.addObject(newObj);
-                break;
             }
 
-            case 4:
+            case "4" ->
             {
-                String removeObj = getInputName();
+                String removeObj = getInputName("object");
                 currScene.removeObject(removeObj);
-                break;
             }
 
-            case 5:
+            case "5" ->
             {
                 currScene.clear();
-                break;
             }
 
-            case 6:
+            case "6" ->
             {
-                String editObj = getInputName();
+                String editObj = getInputName("object");
                 GameObject temp = currScene.getObject(editObj);
                 if(temp != null)
                 {
@@ -359,74 +411,68 @@ public class Console
                     System.out.println(editObj + " not found!");
                     pause();
                 }
-                break;
             }
 
-            case 7:
+            case "7" ->
             {
                 currScene.display("");
                 sc.nextLine();
-                break;
             }
 
-            case 8:
+            case "8" ->
             {
                 currMenu = game_menu;
-                break;
             }
 
-            case 9:
-                return true;
-
-            default:
+            case "9" ->
             {
-                System.out.println("Invalid " + "number" + "!");
+                return true;
+            }
+
+            default ->
+            {
+                System.out.println("Invalid number!");
                 pause();
             }
         }
         return false;
     }
 
-    private boolean objectMenuOptions(int i)
+    private boolean objectMenuOptions(String i)
     {
         switch(i)
         {
-            case 1:
+            case "1" ->
             {
                 System.out.println(currGameObject.getName());
-                break;
             }
 
-            case 2:
+            case "2" ->
             {
-                String newName = getInputName();
+                String newName = getInputName("object");
                 currGameObject.setName(newName);
-                break;
             }
 
-            case 3:
+            case "3" ->
             {
-                String newName = getInputName();
+                String newName = getInputName("new object's");
                 currGameObject.addObject(newName);
-                break;
             }
 
-            case 4:
+            case "4" ->
             {
-                String objName = getInputName();
+                String objName = getInputName("object");
                 currGameObject.removeObject(objName);
-                break;
             }
 
-            case 5:
+            case "5" ->
             {
                 currGameObject.clearChildren();
-                break;
             }
 
-            case 6:
+            case "6" ->
             {
-                String editObj = getInputName();
+                String editObj = getInputName("object");
                 GameObject temp = currGameObject.getObject(editObj);
                 if(temp != null)
                 {
@@ -437,160 +483,345 @@ public class Console
                     System.out.println(editObj + " not found!");
                     pause();
                 }
-                break;
             }
 
-            case 7:
+            case "7" ->
             {
-                System.out.println("1. Edit Position;");
-                System.out.println("2. Edit Rotation;");
-                System.out.println("3. Edit Scale;");
-                System.out.print("Select: ");
-                int opt = sc.nextInt();
-
-                switch(opt)
+                String editComp = getInputName("component's class");
+                Component temp = currGameObject.getComponent(editComp);
+                if(temp != null)
                 {
-                    case 1:
-                    {
-                        Vector3 newPos = new Vector3();
-                        double coord;
-                        System.out.println("Type the new position: ");
-                        coord = sc.nextDouble();
-                        newPos.set(0, coord);
-                        coord = sc.nextDouble();
-                        newPos.set(1, coord);
-                        coord = sc.nextDouble();
-                        newPos.set(2, coord);
-                        currGameObject.changePosition(newPos, false);
-                        break;
-                    }
-
-                    case 2:
-                    {
-                        Vector3 newRot = new Vector3();
-                        double coord;
-                        System.out.println("Type the new rotation: ");
-                        coord = sc.nextDouble();
-                        newRot.set(0, coord);
-                        coord = sc.nextDouble();
-                        newRot.set(1, coord);
-                        coord = sc.nextDouble();
-                        newRot.set(2, coord);
-                        currGameObject.changeRotation(newRot, false);
-                        break;
-                    }
-
-                    case 3:
-                    {
-                        System.out.println("Type the new scale: ");
-                        currGameObject.changeScale(sc.nextInt(), false);
-                        break;
-                    }
-
-                    default:
-                    {
-                        System.out.println("Invalid " + "number" + "!");
-                        pause();
-                        break;
-                    }
+                    currMenu = component_menu;
+                    currComponent = temp;
                 }
-                break;
+                else
+                {
+                    System.out.println(editComp + " not found!");
+                    pause();
+                }
             }
 
-            case 8:
+            case "8" ->             
             {
-                String newComponent = getInputName();
+                String newComponent = getInputName("component");
                 switch(newComponent)    
                 {   
-                    case("Mesh"):
+                    case("Mesh") ->
+                    {
                         currGameObject.addComponent(new Mesh(currGameObject));
-                    case("Light"):
+                    }
+                    case("Light") ->
+                    {
                         currGameObject.addComponent(new Light(currGameObject));
-                    case("Camera"):
+                    }
+                    case("Camera") ->
+                    {
                         currGameObject.addComponent(new Camera(currGameObject));
+                    }
                 }
-                break;
             }
 
-            case 9:
+            case "9" ->
             {
-                currGameObject.removeComponent(getInputName());
-                break;
+                currGameObject.removeComponent(getInputName("component"));
             }
 
-            case 10:
+            case "10" ->
             {
                 currGameObject.clearComponents();
-                break;
             }
 
-            case 11:
+            case "11" ->
             {
                 currGameObject.display("");
                 sc.nextLine();
-                break;
             }
 
-            case 12:
+            case "12" ->
             {
-                currMenu = scene_menu;
-                break;
+                if(currGameObject.isChild())    
+                    currGameObject = currGameObject.getParent();
+                else
+                    currMenu = scene_menu;
             }
 
-            case 13:
+            case "13" ->
             {
                 return true;
             }
 
-            default:
+            default ->
             {
-                System.out.println("Invalid " + "number" + "!");
+                System.out.println("Invalid number!");
                 pause();
             }
         }
         return false;
     }
 
-    private boolean componentMenuOptions(int i)
+    private boolean componentMenuOptions(String i)
     {
         switch(i)
         {
-            case 1:
+            case "1" ->
             {
                 currComponent.getClass();
-                break;
             }
 
-            case 2:
+            case "2" ->
+            {
+                String type = currComponent.getName();
+                switch(type)
+                {
+                    case "Transform" ->
+                    {
+                        currMenu = transform_menu;
+                    }
+                    case "Mesh" ->
+                    {
+                        currMenu = mesh_menu;
+                    }
+                    case "Light" ->
+                    {
+                        currMenu = light_menu;
+                    }
+                    case "Camera" ->
+                    {
+                        currMenu = camera_menu;
+                    }
+                }
+            }
+
+            case "3" ->
             {
                 currComponent.displayAttributes("");
                 sc.nextLine();
-                break;
             }
 
-            case 3:
+            case "4" ->
             {
                 currMenu = object_menu;
-                break;
             }
 
-            case 4:
+            case "5" ->
             {
                 return true;
             }
 
-            default:
+            default ->
             {
-                System.out.println("Invalid " + "number" + "!");
+                System.out.println("Invalid number!");
                 pause();
             }
         }
         return false;
     }
 
-    static public String getInputName()
+    private boolean transformMenuOptions(String i)
     {
-        System.out.printf("Type the name: ");
+        boolean forEveryChild = false;
+        switch(i)
+        {
+            case "1" ->
+            {
+                Vector3 newPos = new Vector3();
+                double coord;
+                System.out.printf("Type the new position: ");
+                for(int j = 0; j < 3; ++j)
+                {
+                    coord = sc.nextDouble();
+                    newPos.set(j, coord);
+                }
+                currGameObject.changePosition(newPos, forEveryChild);
+            }
+            case "2" ->
+            {
+                Vector3 newRot = new Vector3();
+                double coord;
+                System.out.printf("Type the new rotation: ");
+                for(int j = 0; j < 3; ++j)
+                {
+                    coord = sc.nextDouble();
+                    newRot.set(j, coord);
+                }
+                currGameObject.changeRotation(newRot, forEveryChild);
+            }
+            case "3" ->
+            {
+                System.out.printf("Type the new scale: ");
+                currGameObject.changeScale(sc.nextDouble(), forEveryChild);
+            }
+            case "4" ->
+            {
+                currMenu = component_menu;
+            }
+            case "5" ->
+            {
+                return true;
+            }
+            default ->
+            {
+                System.out.println("Invalid number!");
+                pause();
+            }
+        }
+        return false;
+    }
+
+    private boolean meshMenuOptions(String i)
+    {
+        switch(i)
+        {
+            case "1" ->
+            {
+                String newName = getInputName("new");
+                ((Mesh)currComponent).setLabel(newName);
+            }
+            case "2" ->
+            {
+                String newMaterial = getInputName("new material's");
+                ((Mesh)currComponent).setMaterial(newMaterial);
+            }
+            case "3" ->
+            {
+                currMenu = component_menu;
+            }
+            case "4" ->
+            {
+                return true;
+            }
+            default ->
+            {
+                System.out.println("Invalid number!");
+                pause();
+            }
+        }
+        return false;
+    }
+
+    private boolean lightMenuOptions(String i)
+    {
+        switch(i)
+        {
+            case "1" ->
+            {
+                int[] color = new int[3];
+                System.out.printf("Type the new color: ");
+                for(int j = 0; j < 3; ++j)
+                {
+                    color[j] = sc.nextInt();
+                }
+                
+                ((Light)currComponent).setColor(new Color(color[0], color[1], color[2]));
+            }
+            case "2" ->
+            {
+                currMenu = light_type_menu;
+            }
+            case "3" ->
+            {
+                currMenu = component_menu;
+            }
+            case "4" ->
+            {
+                return true;
+            }
+            default ->
+            {
+                System.out.println("Invalid number!");
+                pause();
+            }
+        }
+        return false;
+    }
+
+    private boolean lightTypeMenuOptions(String i)
+    {
+        switch(i)
+        {
+            case "1" ->
+            {
+                ((Light)currComponent).setType(LightType.PUNCTUAL);
+                currMenu = light_menu;
+
+            }
+            case "2" ->
+            {
+                ((Light)currComponent).setType(LightType.PUNCTUAL);
+                currMenu = light_menu;
+            }
+            default ->
+            {
+                System.out.println("Invalid number!");
+                pause();
+            }
+        }
+        return false;
+    }
+
+    private boolean cameraMenuOptions(String i)
+    {
+        switch(i)
+        {
+            case "1" ->
+            {
+                currMenu = camera_type_menu;
+            }
+            case "2" ->
+            {
+                System.out.printf("Type the new angle: ");
+                ((Camera)currComponent).setAngle(sc.nextDouble());
+            }
+            case "3" ->
+            {
+                System.out.printf("Type the new distance (two values): ");
+                double x = sc.nextDouble();
+                double y = sc.nextDouble();
+                ((Camera)currComponent).setPlaneDist(x, y);
+            }
+            case "4" ->
+            {
+                currMenu = component_menu;
+            }
+            case "5" ->
+            {
+                return true;
+            }
+            default ->
+            {
+                System.out.println("Invalid number!");
+                pause();
+            }
+        }
+        return false;
+    }
+
+    private boolean cameraTypeMenuOptions(String i)
+    {
+        switch(i)
+        {
+            case "1" ->
+            {
+                ((Camera)currComponent).setType(CameraType.PARALLEL);
+                currMenu = camera_menu;
+            }
+            case "2" ->
+            {
+                ((Camera)currComponent).setType(CameraType.PERSPECTIVE);
+                currMenu = camera_menu;
+            }
+            default ->
+            {
+                System.out.println("Invalid number!");
+                pause();
+            }
+        }
+        return false;
+    }
+
+    static public String getInputName(String s)
+    {
+        System.out.printf("Type the %s name: ", s);
         return sc.nextLine();
     }
 
@@ -604,12 +835,6 @@ public class Console
         {
             System.out.println("Unable to pause. " + e.getMessage());
         }
-    }
-
-    static private void msgMenuHeader()
-    {
-        System.out.println("-------------- Game Engine --------------");
-
     }
 
 }   // Console

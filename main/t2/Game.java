@@ -12,6 +12,7 @@ import java.io.Serializable;
 
 public class Game implements NamedObject, Serializable
 {
+  private static final long serialVersionUID = 6127;
   private BasicList<Scene> scenes;
   public String name;
 

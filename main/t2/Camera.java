@@ -8,6 +8,7 @@ package t2;
 
 public class Camera extends Component
 {
+  private static final long serialVersionUID = 9820;
   private CameraType type;
   private double angle;
   private Point2 planeDist;
@@ -22,9 +23,9 @@ public class Camera extends Component
   @Override
   public void displayAttributes(String s)
   {
-    System.out.println(s + "      Type: " + type.name());
-    System.out.println(s + "      Angle: " + angle);
-    planeDist.print(s + "      Distance: ");
+    System.out.println(s + "Type: " + type.name());
+    System.out.println(s + "Angle: " + angle);
+    planeDist.print(s + "Distance: ");
   }
 
   public void setAngle(double x)
@@ -47,7 +48,12 @@ public class Camera extends Component
     return planeDist;
   }
 
-  private enum CameraType
+  public void setType(CameraType t)
+  {
+    type = t;
+  }
+
+  public enum CameraType
   {
     PARALLEL,
     PERSPECTIVE

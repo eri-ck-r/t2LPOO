@@ -9,6 +9,7 @@ import java.io.Serializable;
 
 public class Color implements Serializable
 {
+  private static final long serialVersionUID = 1804;
   public int r;
   public int g;
   public int b;

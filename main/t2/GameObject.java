@@ -11,6 +11,7 @@ import java.util.function.Consumer;
 
 public class GameObject implements NamedObject, Serializable
 {
+    private static final long serialVersionUID = 4930;
     protected String name;
     private Scene scene;
     private GameObject parent;
@@ -33,12 +34,28 @@ public class GameObject implements NamedObject, Serializable
         this.name = name;
     }
 
+    public GameObject(Scene s, String name, GameObject parent)
+    {
+        this(s, name);
+        this.parent = parent;
+    }
     @Override
     public String getName()
     {
         return name;
     }
 
+    public boolean isChild()
+    {
+        return parent != null;
+    }
+
+    public GameObject getParent()
+    {
+        if (isChild())
+            return parent;
+        return null;
+    }
     public void setName(String name)
     {
         this.name = name;
@@ -51,7 +68,7 @@ public class GameObject implements NamedObject, Serializable
 
     public void addObject(String name)
     {
-        addObject(new GameObject(this.scene, name));
+        addObject(new GameObject(this.scene, name, this));
     }
 
     public GameObject getObject(String name)
@@ -91,9 +108,18 @@ public class GameObject implements NamedObject, Serializable
 
     public void clearComponents()
     {
-        var transform = components.getFirst();
         components.clear();
         components.add(transform);
+    }
+
+    public Component getComponent(String type)
+    {
+        for(Component c : components)
+        {
+            if(c.getName().equals(type))
+                return c;
+        }
+        return null;
     }
 
     /**
@@ -148,11 +174,11 @@ public class GameObject implements NamedObject, Serializable
         System.out.println(s + "Object name: "+name);
         System.out.println(s + "{");
         String aux = s + "  ";
-        System.out.println(s + "Parent: " + (parent != null ? parent.getName() : "null"));
+        System.out.println(aux + "Parent: " + (parent != null ? parent.getName() : "null"));
         System.out.println(aux + "Components:");
         System.out.println(aux + "{");
         
-        components.forEach( c -> {c.display(aux);});
+        components.forEach( c -> {c.display(aux + "  ");});
         
         System.out.println(aux + "}");
         System.out.println(aux + "Children:");

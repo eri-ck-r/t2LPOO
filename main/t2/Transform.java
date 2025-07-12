@@ -8,6 +8,7 @@ package t2;
 
 public class Transform extends Component 
 {
+    private static final long serialVersionUID = 9425;
     private Vector3 position;
     private Vector3 rotation;
     private double scale;
@@ -52,10 +53,10 @@ public class Transform extends Component
     @Override
     public void displayAttributes(String s)
     {
-        System.out.printf("%s      Position: ", s);
+        System.out.printf("%sPosition: ", s);
         position.print();
-        System.out.printf("%s      Rotation: ", s);
+        System.out.printf("%sRotation: ", s);
         rotation.print();
-        System.out.printf("%s      Scale: %.2f\n", s, scale);
+        System.out.printf("%sScale: %.2f\n", s, scale);
     }
 }  // Transform

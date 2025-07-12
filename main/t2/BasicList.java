@@ -6,9 +6,10 @@
 
 package t2;
 
-import java.util.ArrayList;
 
-public class BasicList<T extends NamedObject> extends ArrayList<T> 
+import java.util.LinkedList;
+
+public class BasicList<T extends NamedObject> extends LinkedList<T> 
 {
     public T getElement(String name)
     {

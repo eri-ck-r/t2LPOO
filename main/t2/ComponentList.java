@@ -8,6 +8,7 @@ package t2;
 
 public class ComponentList extends BasicList<Component>
 {
+  private static final long serialVersionUID = 6442;
   public boolean removeComponent(String type)
   {
     if(type.equals("Transform"))

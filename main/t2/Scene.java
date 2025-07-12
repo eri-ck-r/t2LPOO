@@ -6,10 +6,11 @@
 
 package t2;
 
-import java.util.function.Consumer;
 import java.io.Serializable;
+import java.util.function.Consumer;
 public class Scene implements NamedObject, Serializable
 {
+  private static final long serialVersionUID = 7444;
   private String name;
   private BasicList<GameObject> root;
   
@@ -18,7 +19,7 @@ public class Scene implements NamedObject, Serializable
     // Quando uma nova cena, S, eh criada, esta conterá
     // tres novos objetos de jogo chamados (1) Cube, (2) Light, e (3) Main Camera.
     // Components: Cube terá Mesh; Light terá Light; Main Camera terá Camera.
-    root = new BasicList<GameObject>();
+    root = new BasicList<>(); // ver se tirar o <GameObject> dá pau
 
     GameObject cube = new GameObject(this, "Cube");
     cube.addComponent(new Mesh(cube));  // Returns a boolean but it doesn't matter in here

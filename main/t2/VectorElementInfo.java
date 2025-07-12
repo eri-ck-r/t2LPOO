@@ -8,6 +8,7 @@ package t2;
 
 public class VectorElementInfo extends VectorElement
 {
+  private static final long serialVersionUID = 3153;
   public VectorElementInfo(int i)
   {
     super(i);

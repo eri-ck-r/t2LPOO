@@ -8,6 +8,7 @@ package t2;
 import java.io.Serializable;
 public class VectorElement implements Serializable
 {
+  private static final long serialVersionUID = 1993;
   protected int i;
   protected double value;
   

@@ -8,6 +8,7 @@ package t2;
 
 public class Mesh extends Component
 {
+  private static final long serialVersionUID = 7547;
   String label;
   String material;
   
@@ -45,8 +46,8 @@ public class Mesh extends Component
   @Override
   public void displayAttributes(String s)
   {
-    System.out.println(s + "      Name: " + label);
-    System.out.println(s + "      Material: " + material);
+    System.out.println(s + "Name: " + label);
+    System.out.println(s + "Material: " + material);
   }
 
 }  // Mesh
